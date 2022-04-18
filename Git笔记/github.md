@@ -95,10 +95,12 @@ set https_proxy=
          4. git remote -v 查看远程库信息
          5. 删除远程库，即解除了本地和远程的绑定关系，可以用git remote rm <name>命令，git remote rm origin
       2. 把本地库的所有内容推送到远程库上
-         1. git push -u origin master
-         2. 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-         3. git push origin master
-         4. 从现在起，只要本地作了提交，就可以通过上面命令把本地master分支的最新修改推送至GitHub。
+         1. git pull --rebase origin main
+            1. 首先需要从远程库拉取合并文件
+         2. git push -u origin master
+         3. 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+         4. git push origin master
+         5. 从现在起，只要本地作了提交，就可以通过上面命令把本地master分支的最新修改推送至GitHub。
 5. 分支管理 
    1. git config --global init.defaultBranch main 将 Git 默认分支从 master 修改为 main
    2. 创建与合并分支
@@ -168,6 +170,7 @@ set https_proxy=
          4. 你的小伙伴已经向origin/dev分支推送了他的提交，而碰巧你也对同样的文件作了修改，并试图推送，推送失败，因为你的小伙伴的最新提交和你试图推送的提交有冲突，解决办法也很简单，Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送
          5. git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接
             1. git branch --set-upstream-to=origin/dev dev
+            2. branch 'main' set up to track 'origin/main'. 表示成功
          6. 再pull，这回git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样。解决后，提交，再push
       4. 因此，多人协作的工作模式通常是这样：
          1. 首先，可以试图用git push origin <branch-name>推送自己的修改；
@@ -207,9 +210,8 @@ set https_proxy=
          1. git tag -d v0.9
          2. 然后，从远程删除。删除命令也是push，但是格式如下：
          3. git push origin :refs/tags/v0.9
-7. GitHub pages 搭建网站
-   1. 个人站点： https://用户名.github.io
-   2. 搭建步骤
-      1. 创建个人站点：新建仓库，仓库名必须是 用户名.github.io
-      2. 在仓库下新建index.html文件
-   3. 这样就可以访问个人站点了，但是只支持静态页面，仓库里面只能是.html文件。
+7. 本地仓库有文件，远程仓库也有文件，正确姿势：
+   1. git remote add origin 远程仓库地址
+   2. git pull origin master --allow-unrelated-histories
+   3. git branch --set-upstream-to=origin/master master
+   4. git push

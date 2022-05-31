@@ -3,7 +3,7 @@ import Element3 from 'element3'
 import 'element3/lib/theme-chalk/index.css'
 import store from './store/index'
 import App from './App.vue'
-import router from '@src/router/index'
+import router from '../src/router/index'
 // import Heading from './components/Head.js'
 window.onerror = function(e){
     console.log(['https://stackoverflow.com/search?q=[js]+'+e])

@@ -76,7 +76,7 @@
       1. var date=new Date（）；这个date记录了它出生时的时间，不会改变
       2. getDate() 一个月的某一天，0~30
       3. getDay() 一周中的某一天，0~6 0表示周日
-      4. getMonth() 月份，0~12
+      4. getMonth() 月份，0~11
       5. getFullYear() 以四位数字返回年份，如2021
       6. getHours() 返回Date对象中的小时 0~23
       7. getMinutes() 0~59

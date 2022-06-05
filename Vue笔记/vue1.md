@@ -39,7 +39,7 @@
       6. 批评
          1. 对这种模式的批评来自MVVM的创造者John Gossman本人，他指出，实现MVVM的开销对于简单的UI操作是"过度的"。他说，对于更大的应用来说，推广ViewModel变得更加困难。而且，他说明了非常大的应用程序中的数据绑定会导致相当大的内存消耗。
    3. Vue中的MVVM
-      1. ![图片](./Vue中的MVVM.png)
+      1. ![图片](./img/Vue中的MVVM.png)
       2. Date Bindings 数据绑定
          1. 把js（model）里的数据，通过Vue（ViewModel）绑定到DOM（view），并且是响应式的，js中的数据改动了，DOM也随之响应。
       3. DOM Listeners DOM监听
@@ -63,7 +63,7 @@
 4. Vue的生命周期
    1. 生命周期：事物从诞生到消亡的整个过程。
    2. vue自己的生命周期：new vue（）创建出来，做了一系列的操作，在这一整个过程中，通过一些生命周期函数可以做一些回调，来告诉用户现在执行到哪一步了。如果想要在某一步操作前做点什么，可以通过传入的参数来改变，也就是传入的参数会被这个vue的构造函数调用，逐步执行。
-   3. ![图片](./lifecycle.png) ![图片](./lifecycle1.png)
+   3. ![图片](./img/lifecycle.png) ![图片](./img/lifecycle1.png)
 5. template（模板）语法
    1. 插值操作
       1. Mustache（胡须）双大括号语法{{data中定义的数据}}

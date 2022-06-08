@@ -80,26 +80,26 @@
          1. 作用与Mustache作用相似，用于将数据显示在界面中。
          2. 通常情况其接受一个字符串类型
          3. 一般不用，因为不够灵活，只能显示一个数据，不可以拼接，并且会覆盖标签中的所有文本，包括{{message}}，下面的url同样也会被覆盖
-         4. <h1 v-text="message">url</h1>
+         4. `<h1 v-text="message">url</h1>`
       5. v-pre 指令
-         1. <pre></pre>标签会原封不动的展示标签内的内容
+         1. `<pre></pre>`标签会原封不动的展示标签内的内容
          2. 这个指令作用类似pre标签，只要HTML元素加上了这个属性，那么后面显示的内容会原封不动的显示，不会解析data中的数据，例如下面就会显示{{message}}这几个字符串
-         3. <h1 v-pre>{{message}}</h1>
+         3. `<h1 v-pre>{{message}}</h1>`
       6. v-cloak 指令
          1. cloak（斗篷），在某些情况下，我们的浏览器可能会直接显示出未编译的Mustache标签，例如vue代码卡住了，HTML标签就会直接显示字符串{{message}}，等到vue代码不卡了，才开始渲染，把这段代码{{message}}解析为数据。
          2. 但是我们不想要它显示代码的样子，没解析vue的话就不要显示那种原生代码，所以添加属性v-cloak。在vue解析之前，h1中有v-cloak属性，在vue解析之后就会把这个属性删除，所以就可以根据有没有这个属性决定这段代码现不现实。
-         3. 作用是一旦vue没有对这个HTML代码解析，即存在v-cloak属性，就display：none，不会显示出来。相当于添加了一段代码，<style> [v-cloak]{display:none;} </style>
-         4. <h1 v-cloak></h1>
+         3. 作用是一旦vue没有对这个HTML代码解析，即存在v-cloak属性，就display：none，不会显示出来。相当于添加了一段代码，`<style> [v-cloak]{display:none;} </style>`
+         4. `<h1 v-cloak></h1>`
    2. 绑定属性
-      1. <img src=""></img> 有时候我们想要动态的把服务器返回的数据绑定到HTML标签的属性（例如这里的src属性）中，而不是标签的内容中，就需要用到绑定属性。
+      1. `<img src=""></img>` 有时候我们想要动态的把服务器返回的数据绑定到HTML标签的属性（例如这里的src属性）中，而不是标签的内容中，就需要用到绑定属性。
       2. v-bind 指令
          1. 动态绑定属性，参数为attrOrProp（optional）
             1. 可以传入any（with argument）| Object（without argument）作为参数，表示任意或者对象。
          2. v-bind基础
-            1. <img src="{{message}}"></img> 这里不能写Mustache语法，只能写在内容区域才会解析成数据，这里就是{{message}}这几个字符串，不会变为数据。
-            2. <img v-bind:src="message"></img> 这时才会把message当成一个变量来解析成数据。
+            1. `<img src="{{message}}"></img>` 这里不能写Mustache语法，只能写在内容区域才会解析成数据，这里就是{{message}}这几个字符串，不会变为数据。
+            2. `<img v-bind:src="message"></img>` 这时才会把message当成一个变量来解析成数据。
          3. v-bind语法糖
-            1. 简写方式：<img :src="message"></img>
+            1. 简写方式：`<img :src="message"></img>`
          4. 动态绑定class（对象语法）
          ```
          点击按钮，h1的类名就会在是否有isActive之间来回跳跃，从而改变标签的样式.h1标签里面的两个class会进行合并，当然也可以绑定一个methods或者computed中,例如下面的classes是一个methods,注意这里需要给计算属性加上小括号。但是v-on里面的btnClick不用加小括号是因为被省掉了，而这里不能省略。
@@ -144,12 +144,12 @@
          </script>
          ```
          6. 动态绑定style（对象语法）
-            1. <h1 :style="{key（css属性名）：value（属性值）}">{{message}}</h1>
-            2. <h1 :style="{font-size：'50px'">{{message}}</h1>
+            1. `<h1 :style="{key（css属性名）：value（属性值）}">{{message}}</h1>`
+            2. `<h1 :style="{font-size：'50px'">{{message}}</h1>`
             3. 属性名也可以用小驼峰式写法，例如fontSize。这里的属性值必须加引号，把属性值当成字符串解析。如果不加引号就被系统视为变量，而变量是不能以数字开头的，所以会在这里报错。css中属性值不需要加单引号，但是vue中必须加，等到vue把其转换为真正的css时，是会消除单引号的。
             4. 也可以通过methods方法返回一个对象，然后添加到style中
          7. 动态绑定style（数组语法）
-            1. <h1 :style="[baseStyles,oneStyles,twoStyles]">{{message}}</h1>
+            1. `<h1 :style="[baseStyles,oneStyles,twoStyles]">{{message}}</h1>`
             2. 数组里面放的数据是一个对象，例如baseStyles就是定义在data中的一个对象，里面存放键值对css属性。用的很少。
    3. 计算属性
       1. 在模板中可以直接通过插值语法显示一些data中的数据，但在某些情况下我们可能需要对数据进行一些转化后再显示，或者需要将多个数据结合起来再显示

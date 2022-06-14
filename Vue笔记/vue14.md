@@ -4,8 +4,10 @@
       父组件v-model data值
       子组件
       props：{
-        data:String,
-        default:() =>{''}
+        data: {
+          type: String,
+          default: () =>{''},
+        },
       }
       model:{
         prop:'data',   //代表和父传子props的值
@@ -17,20 +19,7 @@
         }
       }
       ```
-2. vue中使用v-bind="$attrs"和v-on="$listeners"进行多层组件监听
-   1. vue组件中通信除了使用props和vuex和中央事件总线bus之外，vue2.4提供了另外两种属性，分别将父组件中不认为是props的特性绑定的属性传入子组件中，通常配合interitAttrs选项一起用
-      ```
-      <top>
-        <center>
-          <bottom>
-          </bottom>
-        </center>
-      </parent>
-      top传递四个属性和两个事件到子组件center
-      center组件props接受两个属性，并且在他的子组件bottom中使用v-bind="$attrs"、v-on="$listeners"，其中包含了父作用域中不作为props识别的特性绑定，这些未识别的属性可以通过$attrs传入bottom子组件，未识别的事件可以通过$listeners传入bottom子组件(.native绑原生事件是没用的)
-      bottom组件中可以用props接受center组件没有注册的属性，也可以通过{{$attrs['gender']}}这种方式直接使用，通过this.$listeners.isClick()这种方式使用父组件传入的事件
-      ```
-3. watch监听一个对象中的属性
+2. watch监听一个对象中的属性
    1. 例：
       ```
       方法一：直接监听对象，如果修改了这个queryData中的任何一个属性，都会执行handler这个方法
@@ -64,33 +53,16 @@
         }
       }
       ```
-4. $refs取DOM元素
-   1. 通过vue中的这种方法取得DOM元素时，如果需要使用组件中的方法，必须要在这个DOM元素加载出来的时候才可以使用
-   2. 例如弹窗中的select组件，我们在没有点击弹窗时就不能通过这种方法取到固定ref属性的DOM元素，this.$refs此时显示undefined，只有打开弹窗时才可以取到DOM元素
-5. @input="inputEvent(arguments,scope.$index)"
+3. @input="inputEvent(arguments,scope.$index)"
    1. input事件里面传出来的参数，argument
    2. 后面的参数是自己另外加上的
    3. argument也可以使用$event代替,不过$event只能取到一个参数
-6. el-table表格表头自定义，使用插槽的方式，表头数据不更新
+4. el-table表格表头自定义，使用插槽的方式，表头数据不更新
    1. <template slot="header" >改成<template #header>
-7. 在vue页面文件中使用el-popover组件时，在style标签中设置样式无效。
+5. 在vue页面文件中使用el-popover组件时，在style标签中设置样式无效。
    1. el-popover的class是el-popover，他比较特别的是,el-popover生成的div不在当前组件之内，甚至不在App.vue组件的div内，他和App.vue组件的div平级，需要设置全局style。
    2. 当不同页面都使用到了el-popover组件，并且样式有区别，在全局设置样式时针对每一个popover-class的名字修改样式即可解决！
-8. this.$nextTick(() =>{})
-   1. 在我们通过this.$refs取得DOM元素时，可能某些元素还没有加载出来，这时就需要在this.$nextTick中进行处理
-9. 父组件接收子组件的值的时候，有时候希望能在接收子组件的值的同时，在将另一个参数传入接收函数中，如下
-   ```
-   // 子组件 my-button
-   <button @click="$emit('click', 'hello')">按钮</button>
-   // 父组件
-   <my-button @click="clickHandle(arguments, '我是父组件内的数据')"><my-button>
-   methods: {
-      clickHandle(arguments, parentStr) {
-         console.log(arguments[0])
-         console.log(parentStr)
-      }
-   ```
-10. el-input-number直接在输入框输入内容v-model的值不会跟着改变
+6. el-input-number直接在输入框输入内容v-model的值不会跟着改变
    1. el-input-number组件中直接输入值，然后离开鼠标直接mouseenter其他的button,这个时候要获取v-model的值，发现v-model的值并不会改变
    2. 查elementui的issure发现是因为el-input-number在封装时并没有将直接输入的值赋值给v-model,然后自己细想一下使用@keyup事件把输进去的值在给到v-model.
       ```
@@ -109,17 +81,15 @@
         this.choose_quantity = e.target.value
       }
       ```
-11. vue中div元素的@contextmenu.prevent="openMenu($event, scope.row, index)" 右键事件
-12. vue背景图不要使用background-image，会出现bug，使用下面的方式或者直接用img图片放在div后面
+7.  vue中div元素的@contextmenu.prevent="openMenu($event, scope.row, index)" 右键事件
+8.  vue背景图不要使用background-image，会出现bug，使用下面的方式或者直接用img图片放在div后面
     1. :style="{backgroundImage: 'url(' +color+ ')'}"
     2. color:require('./assets/default.png')
-13. 关于组件传值
+9.  关于组件传值
     1. 父组件向子组件中传值
        1. :apiParams='landIdParams' 和 :apiParams='{a:''}'
     2. 如果在子组件中通过watch监听apiParams，那么第二种情况会一直刷新
-14. this.$refs.xxx.selection
-   1. 获取table组件多选框中选中的选项
-15. vue使用dragstart等方法，实现拖拽排序
+10. vue使用dragstart等方法，实现拖拽排序
     1. 具体使用见roomImg.vue
     2. draggable="true"，使元素可拖拽 
       ```

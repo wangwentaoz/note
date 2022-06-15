@@ -55,4 +55,65 @@
           ```
           x = Big(12).toFixed(2)
           ```
-5. 
+5. 闭包保存的变量
+   1. 第一种情况：直接引用对象中的某个属性，这时闭包为整个对象
+      ```
+      function foo() {  
+        var a = {
+          b:'222',
+          c:'222'
+        }    
+        return function(){
+          a.b += 1
+          console.log(a.b)
+        }
+      }
+      var bar = foo()
+      bar()
+
+      Closure (foo) ：       a: {b: '2221', c: '222'}
+      ```
+   2. 第二种情况：把对象中的属性值赋值到新的变量，这时闭包为新的变量
+      ```
+      function foo() {  
+        var a = {
+          b:'222',
+          c:'222'
+        }    
+        var d = a.b
+        return function(){
+          d += 1
+          console.log(d)
+        }
+      }
+      var bar = foo()
+      bar()
+
+      Closure (foo) ：     d: "2221"
+      ```
+   3. 特殊情况：父函数中的其他不执行函数引用了返回函数没有使用的变量,返回函数的闭包里也会有该变量
+      ```
+      function foo() {  
+        var a = {
+          b:'222',
+          c:'222'
+        }    
+        var d = {
+          e:'222'
+        }
+        function add(){
+          d.e = '111'
+        }
+        add()
+        return function(){
+          a.b += 1
+        }
+      }
+      var bar = foo()
+      bar()
+      console.log('2')
+
+      Closure (foo) ：      a: {b: '2221', c: '222'}
+                            d: {e: '111'}
+      ```
+6.  

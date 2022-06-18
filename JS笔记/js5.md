@@ -120,8 +120,7 @@
                      }
                      document.onmouseup=function(){
                         event=e || window.event;
-                        elem.onmouseover=null;
-                        
+                        document.onmousemove=null;
                      }
                      stopBubble(event);
                      cancelHandler(event);

@@ -6,9 +6,9 @@
       4. 然后，在下一个的事件循环“tick"中，Vue刷新队列并执行实际（已去重的）工作。
    2. $nextTick执行机制
       1. $nextTick会在DOM更新之后被触发，以获取最新DOM节点
-      2. 具体来讲，JavaScript原生DOM操作时会随着JavaScript代码执行同步进行DOM更新，而使用Vue会异步更新DOM，会在当前执行栈的最后更新DOM
-      3. 因为对于兼容的浏览器来说，nextTick相当于是微任务，所以nextTick中会得到DOM更新后的结果
-      4. 因为$nextTick的回调函数是在当前执行栈的所有同步任务执行完毕后再执行
-      5. 不过页面渲染始终是在微任务执行之后才进行的，所以$nextTick回调执行时页面还没有进行渲染，在页面上看不到更新后的结果
+      2. 具体来讲，JavaScript原生DOM操作时会随着JavaScript代码执行同步进行DOM更新，而使用Vue会异步更新DOM
+      3. 会在nextTick微任务中更新DOM，然后再执行$nextTick的回调函数
+      4. 不过页面渲染始终是在微任务执行之后才进行的，所以$nextTick回调执行时页面还没有进行渲染，在页面上看不到更新后的结果
    3. 注：浏览器如果不兼容则有几种备选方案，其中setTimeout是最后的一种备选方案，它会将回调函数加入任务队列task中，等待执行。
+   4. https://zhuanlan.zhihu.com/p/364479245
 2. 

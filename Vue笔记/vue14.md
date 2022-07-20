@@ -89,7 +89,12 @@
     1. 父组件向子组件中传值
        1. :apiParams='landIdParams' 和 :apiParams='{a:''}'
     2. 如果在子组件中通过watch监听apiParams，那么第二种情况会一直刷新
-10. vue使用dragstart等方法，实现拖拽排序
+10. 给el-select赋默认值
+    1. 必须先给options赋值，再给绑定的value赋值才行，即
+       1. this.options=“后台返回的值”
+       2. this.value=“想要赋的值”
+    2. value-key作为 value 唯一标识的键名，绑定值为对象类型时必填
+11. vue使用dragstart等方法，实现拖拽排序
     1. 具体使用见roomImg.vue
     2. draggable="true"，使元素可拖拽 
       ```
